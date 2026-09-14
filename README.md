@@ -1,5 +1,7 @@
 # RGB-D Robot 6D Pose Perception Pipeline
 
+![Pipeline demo](docs/assets/pipeline_demo.gif)
+
 可验证的工程链路：公开 RGB-D → 掩膜 → FoundationPose 6D 位姿 → 手眼/坐标变换 → ROS2 离线回放。
 
 ```text
@@ -42,6 +44,17 @@ flowchart LR
 ```
 
 ## Quick start
+
+Regenerate the README GIF (synced RGB+RViz pairs, equal panels):
+
+```powershell
+# 1) In WSL: launch offline pipeline + rviz2, then:
+#    python3 scripts/capture_synced_gif_frames.py --out outputs/ros2_acceptance/synced_gif --max-frames 40
+# 2) On Windows:
+python scripts\make_readme_gif.py `
+  --synced-dir outputs\ros2_acceptance\synced_gif `
+  --fps 5 --width 1000 --height 480
+```
 
 ```powershell
 # from repo root
