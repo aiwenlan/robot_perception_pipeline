@@ -1,0 +1,23 @@
+frames:
+  world: base_link
+  camera: camera_color_optical_frame
+  object: object_1
+pose_convention: "T_parent_child maps child-frame coordinates into parent frame"
+segmentation:
+  mode: gt_mask  # gt_mask | fastsam
+  fastsam_weights: data/models/FastSAM-s.pt
+foundationpose:
+  # Upstream FoundationPose clone (run_demo / Docker). Large assets live under this repo's data/.
+  repository: ../FoundationPose
+  weights_dir: data/foundationpose/weights
+  demo_data_dir: data/foundationpose/demo_data
+  scorer_run: 2024-01-11-20-02-45
+  refiner_run: 2023-10-28-18-33-37
+  # After scripts/link_foundationpose_assets.py, official scripts see:
+  #   FoundationPose/weights -> data/foundationpose/weights
+  #   FoundationPose/demo_data -> data/foundationpose/demo_data
+evaluation:
+  symmetric_object: false
+  report_add: true
+  report_adds: true
+  report_projection_error: true

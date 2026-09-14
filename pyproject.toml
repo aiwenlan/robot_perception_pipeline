@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "robot-perception-pipeline"
+version = "0.1.0"
+description = "Public RGB-D 6D pose, hand-eye calibration, pose transforms, and ROS2 replay pipeline"
+requires-python = ">=3.9,<3.13"
+dependencies = [
+  "numpy>=1.24,<3",
+  "opencv-python>=4.8,<5",
+  "scipy>=1.10,<2",
+  "PyYAML>=6,<7",
+]
+
+[project.optional-dependencies]
+fastsam = ["ultralytics>=8.2,<9", "torch>=2.0", "torchvision>=0.15"]
+dev = ["pytest>=8,<9"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+

@@ -1,0 +1,61 @@
+.venv*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+.eggs/
+dist/
+
+# ROS / colcon
+ros2_ws/build/
+ros2_ws/install/
+ros2_ws/log/
+build/
+install/
+log/
+
+# Local runtime outputs (bags, screenshots, videos, full metric dumps)
+outputs/*
+!outputs/.gitkeep
+
+# Large / licensed assets (keep directory placeholders)
+data/models/*.pt
+data/foundationpose/**
+!data/foundationpose/**/
+!data/foundationpose/**/.gitkeep
+data/datasets/**
+!data/datasets/**/
+!data/datasets/**/.gitkeep
+data/example/
+data/manifest_mustard0_with_pose.jsonl
+*.pth
+*.onnx
+*.engine
+
+# Media & bags (also covered by outputs/*, keep explicit for safety)
+*.mp4
+*.mcap
+*.bag
+*.db3
+
+# Editor / agent / OS
+.cursor/
+.codex/
+.chatgpt/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Internal planning / process notes (not for public showcase)
+docs/REMAINING_PLAN.md
+docs/REMAINING_PLAN_WORKLOG.md
+docs/ONE_WEEK_CHECKLIST.md
+docs/PROJECT_REPORT_TEMPLATE.md
+
+# Personal / local scratch next to the repo or inside it
+**/个人简历*
+**/*_extract.txt
+**/*_preview.txt
+**/*_backup*
+**/demo_assets/

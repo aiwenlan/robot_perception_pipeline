@@ -1,0 +1,41 @@
+{
+  "note": "Compact metrics for GitHub showcase. Full per-frame dumps stay local under outputs/ (gitignored).",
+  "camera_calibration": {
+    "source": "OpenCV chessboard sample",
+    "rms_px": 0.156,
+    "mean_reprojection_error_px": 0.138
+  },
+  "mustard0_fastsam_vs_gt_mask": {
+    "frame_id": "1581120424100262102",
+    "mask_iou": 0.945,
+    "rotation_error_deg": 1.23,
+    "translation_error_m": 0.00052,
+    "add_m": 0.00088,
+    "adds_m": 0.00077,
+    "projection_error_px": 0.32,
+    "reference": "pose from GT-mask registration (mustard0 has no annotated GT poses)"
+  },
+  "ycbv_bop_scene000050_obj5": {
+    "num_frames": 50,
+    "mean": {
+      "rotation_error_deg": 1.54,
+      "translation_error_m": 0.00245,
+      "add_m": 0.00271,
+      "adds_m": 0.00162,
+      "projection_error_px": 3.49
+    },
+    "median": {
+      "rotation_error_deg": 1.55,
+      "translation_error_m": 0.00242,
+      "add_m": 0.00263,
+      "adds_m": 0.00160,
+      "projection_error_px": 3.46
+    },
+    "reference": "dataset GT pose"
+  },
+  "hand_eye": {
+    "type": "simulated eye-in-hand AX=XB noise sweep",
+    "artifact": "outputs/hand_eye_noise_sweep.json (local)",
+    "note": "T_base_camera / hand-eye extrinsics are simulated, not real-robot calibration"
+  }
+}
