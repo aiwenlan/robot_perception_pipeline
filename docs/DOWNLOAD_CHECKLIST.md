@@ -68,6 +68,3 @@ docker tag wenbowen123/foundationpose foundationpose
 | 合成 RGB-D | `scripts/generate_synthetic_dataset.py` |
 | 课程 FP 源码 | `../code/FoundationPose-main` |
 
-## 本周不做
-
-- PCL 完整工程、MoveIt2、大型 ACT/Diffusion 训练数据

@@ -131,12 +131,3 @@ ROS 中由 `static_camera_tf` 发布模拟 `T_base_camera`，`pose_transform` �
 
 ---
 
-## 附录：口述 / 录屏提纲（3～5 分钟）
-
-1. **目标一句话**（30s）：公开 RGB-D 上的 6D 感知 Pipeline，可量化、可 ROS 回放。  
-2. **链路图**（40s）：标定 → FastSAM/GT mask → FoundationPose → `T_base_object` → ROS2。  
-3. **关键数字**（60s）：标定重投影 ~0.14 px；YCB ADD-S ~1.6 mm；FastSAM IoU 0.95 且位姿差很小。  
-4. **演示**（90s）：WSL launch + RViz（或播放 bag）；指出 TF 与 pose_base。  
-5. **边界**（40s）：模拟手眼外参；未做 MoveIt/PCL；云端跑 FP。  
-
-录屏建议窗口：终端 launch 日志 + RViz；保存到本地 `outputs/demo_walkthrough.mp4`（不提交到 Git）。
