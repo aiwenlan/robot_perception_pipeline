@@ -113,6 +113,7 @@ RGB-D → depth prep → Open3D cloud → filter / plane / cluster
 → mask → FoundationPose → CAD @ T_camera_object → ICP
 → T_base_object → ROS2 (raw / object / CAD clouds + TF)
 → optional TSDF
+→ optional grasp candidates (T_camera_grasp)
 
 Experimental: RGB → ORB → PnP → compare with FoundationPose
 ```
@@ -168,13 +169,29 @@ cmake .. -Wno-dev && cmake --build . -j
 
 详见 [`pcl_demo/README.md`](pcl_demo/README.md)。
 
+## Grasp candidates (operation step)
+
+把感知再往「操作」延伸一步：目标点云 → `T_camera_grasp` 抓取候选（GraspNet 兼容表示）。  
+默认用几何启发式，本机可跑；官方 GraspNet NN 为可选（见 [`docs/GRASPNET_SETUP.md`](docs/GRASPNET_SETUP.md)）。
+
+```powershell
+$env:PYTHONPATH="$PWD\src"
+python scripts\demo_grasp_on_object_cloud.py
+```
+
+**Object cloud + top grasp candidates**
+
+![Grasp demo](docs/assets/viz_grasp_demo.png)
+
+边界：这是抓取**候选**，不是真实机械臂 / MoveIt2 闭环。
+
 ## Repository layout
 
 ```text
 robot_perception_pipeline/
 ├─ pcl_demo/                  # standalone PCL C++ mini pipeline (WSL)
 ├─ src/robot_pose_pipeline/   # calib, transforms, hand-eye, metrics, RGB-D,
-│                             # depth/, pointcloud/, registration/, matching/, reconstruction/
+│                             # depth/, pointcloud/, registration/, matching/, reconstruction/, grasping/
 ├─ scripts/                   # CLI + Open3D demos + README viz helpers
 ├─ ros2_ws/                   # ROS2 offline replay (+ optional cloud_processor)
 ├─ data/
@@ -199,6 +216,7 @@ robot_perception_pipeline/
 | [DATA_AND_CONVENTIONS.md](docs/DATA_AND_CONVENTIONS.md) | Frames & pose convention |
 | [ROS2_RUNBOOK.md](docs/ROS2_RUNBOOK.md) | Build / launch / bag / RViz |
 | [PCL_EQUIVALENTS.md](docs/PCL_EQUIVALENTS.md) | Open3D ↔ PCL mapping |
+| [GRASPNET_SETUP.md](docs/GRASPNET_SETUP.md) | Grasp demo + optional GraspNet NN |
 | [PROJECT_REPORT.md](docs/PROJECT_REPORT.md) | Experiment report |
 | [results_summary.json](docs/results_summary.json) | Compact metrics |
 
@@ -209,7 +227,8 @@ robot_perception_pipeline/
 3. FastSAM experiment bbox is derived from GT mask (not an independent detector).  
 4. FoundationPose was validated primarily on a **cloud RTX 4090**; laptop 6GB GPU is optional.  
 5. Large bags, screenshots, and demo videos stay local under `outputs/` (gitignored).  
-6. Synthetic demos are for algorithm learning; weak texture may make ORB+PnP fall back to a synthetic PnP check.
+6. Synthetic demos are for algorithm learning; weak texture may make ORB+PnP fall back to a synthetic PnP check.  
+7. Grasp demo outputs **candidates only** (no real arm / MoveIt2).  
 
 ## Acceptance checklist
 
@@ -221,3 +240,4 @@ robot_perception_pipeline/
 6. ROS2 launch: Image / CameraInfo / PointCloud2 / Pose / TF / rosbag2 / RViz2  
 7. (Optional) Open3D demos produce PLY/PNG under `outputs/` and README viz assets  
 8. (Optional) `pcl_demo/` builds on WSL and writes staged PCD + ICP fitness  
+9. (Optional) Grasp demo writes `T_camera_grasp` candidates + overlay PNG  
