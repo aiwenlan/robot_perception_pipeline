@@ -1,0 +1,4 @@
+build/
+outputs/
+data/*.pcd
+!data/.gitkeep

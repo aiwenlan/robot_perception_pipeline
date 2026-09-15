@@ -145,10 +145,34 @@ Experimental: RGB → ORB → PnP → compare with FoundationPose
 
 Open3D ↔ PCL 接口对照：[`docs/PCL_EQUIVALENTS.md`](docs/PCL_EQUIVALENTS.md)。
 
+## PCL mini demo (C++)
+
+独立工程 [`pcl_demo/`](pcl_demo/)（不改写 Python/ROS 主链路）：
+
+```text
+PCD → VoxelGrid → PassThrough/SOR → RANSAC plane → Euclidean clustering → ICP
+```
+
+```bash
+# WSL Ubuntu 24.04 + libpcl-dev
+cd pcl_demo
+python3 scripts/make_demo_clouds.py
+mkdir -p build && cd build
+cmake .. -Wno-dev && cmake --build . -j
+./pcl_mini_demo --input ../data/scene.pcd --model ../data/model.pcd --out ../outputs
+```
+
+**PCL pipeline stages (input → no-plane → object cluster → ICP aligned)**
+
+![PCL mini demo](docs/assets/viz_pcl_demo.png)
+
+详见 [`pcl_demo/README.md`](pcl_demo/README.md)。
+
 ## Repository layout
 
 ```text
 robot_perception_pipeline/
+├─ pcl_demo/                  # standalone PCL C++ mini pipeline (WSL)
 ├─ src/robot_pose_pipeline/   # calib, transforms, hand-eye, metrics, RGB-D,
 │                             # depth/, pointcloud/, registration/, matching/, reconstruction/
 ├─ scripts/                   # CLI + Open3D demos + README viz helpers
@@ -196,3 +220,4 @@ robot_perception_pipeline/
 5. `T_base_object = T_base_camera @ T_camera_object`  
 6. ROS2 launch: Image / CameraInfo / PointCloud2 / Pose / TF / rosbag2 / RViz2  
 7. (Optional) Open3D demos produce PLY/PNG under `outputs/` and README viz assets  
+8. (Optional) `pcl_demo/` builds on WSL and writes staged PCD + ICP fitness  
