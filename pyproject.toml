@@ -16,6 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 fastsam = ["ultralytics>=8.2,<9", "torch>=2.0", "torchvision>=0.15"]
+open3d = ["open3d>=0.17,<0.20"]
 dev = ["pytest>=8,<9"]
 
 [tool.setuptools]

@@ -76,6 +76,51 @@ Visualization Manager:
       Use Fixed Frame: true
       Use rainbow: true
       Value: true
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: false
+      Name: ProcessedCloud
+      Size (m): 0.005
+      Style: Points
+      Color Transformer: FlatColor
+      Color: 0; 200; 255
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /perception/processed_cloud
+      Value: false
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: false
+      Name: ObjectCloud
+      Size (m): 0.005
+      Style: Points
+      Color Transformer: FlatColor
+      Color: 50; 255; 50
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /perception/object_cloud
+      Value: false
+    - Class: rviz_default_plugins/PointCloud2
+      Enabled: false
+      Name: CadAlignedCloud
+      Size (m): 0.005
+      Style: Points
+      Color Transformer: FlatColor
+      Color: 255; 200; 0
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /perception/cad_aligned_cloud
+      Value: false
     - Alpha: 1
       Axes Length: 0.12
       Axes Radius: 0.01

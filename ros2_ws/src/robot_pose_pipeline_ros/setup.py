@@ -23,6 +23,7 @@ setup(
             "dataset_player = robot_pose_pipeline_ros.dataset_player_node:main",
             "static_camera_tf = robot_pose_pipeline_ros.static_camera_tf_node:main",
             "pose_transform = robot_pose_pipeline_ros.pose_transform_node:main",
+            "cloud_processor = robot_pose_pipeline_ros.cloud_processor_node:main",
         ]
     },
 )
