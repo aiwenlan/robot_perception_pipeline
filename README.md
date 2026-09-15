@@ -2,16 +2,20 @@
 
 ![Pipeline demo](docs/assets/pipeline_demo.gif)
 
-可验证的工程链路：公开 RGB-D → 掩膜 → FoundationPose 6D 位姿 → 手眼/坐标变换 → ROS2 离线回放。
+可验证的工程链路：公开 RGB-D → 掩膜 → FoundationPose 6D 位姿 → 手眼/坐标变换 → ROS2 离线回放；并扩展 Open3D 点云处理、PCL C++ 小 demo、以及抓取候选（GraspNet 兼容表示）。
 
 ```text
 Camera calib → Detector bbox / FastSAM mask → FoundationPose (T_camera_object)
 → Hand-eye AX=XB → T_base_object = T_base_camera @ T_camera_object
 → ROS2 TF2 / PointCloud2 / RViz2 / rosbag2
+
+Optional: depth/Open3D cloud → filter/plane/cluster → CAD+ICP → TSDF
+         → grasp candidates (T_camera_grasp)
+Optional: pcl_demo/ (C++ Voxel→SOR→RANSAC→Euclidean→ICP)
 ```
 
-**本仓库不包含：** 完整 PCL 工程化、FK/IK、MoveIt2、真实机械臂联调。  
-Open3D 点云/ICP/TSDF 为可选扩展；PCL 仅概念对照，见 [`docs/PCL_EQUIVALENTS.md`](docs/PCL_EQUIVALENTS.md)。
+**本仓库不包含：** 完整 PCL 产线工程化、FK/IK、MoveIt2、真实机械臂联调。  
+Open3D 为主线扩展；PCL 有独立最小 C++ demo（[`pcl_demo/`](pcl_demo/)），概念对照见 [`docs/PCL_EQUIVALENTS.md`](docs/PCL_EQUIVALENTS.md)。抓取仅为候选，不是真机闭环。
 
 ## Highlights
 
@@ -42,6 +46,9 @@ flowchart LR
   CP --> PT[T_base_object]
   BC --> PT
   PT --> ROS[ROS2 TF2 + PointCloud2 + RViz2 + rosbag2]
+  DEP --> O3D[Open3D cloud / filter / ICP / TSDF]
+  O3D --> GR[Grasp candidates T_camera_grasp]
+  DEP --> PCL[pcl_demo C++]
 ```
 
 ## Quick start
@@ -104,8 +111,10 @@ python scripts\demo_icp_cad_align.py
 python scripts\demo_orb_pnp.py
 python scripts\demo_tsdf_fusion.py
 python scripts\demo_ros_cloud_topics.py
+python scripts\demo_grasp_on_object_cloud.py
 # regenerate README previews:
 python scripts\make_readme_viz.py
+python scripts\make_pcl_readme_viz.py
 ```
 
 ```text
